@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class GerenciadorDeDados {
     Dados dados = new Dados();
     
-    LocalDate Data () {
+    public LocalDate Data () {
         return LocalDate.now();
     }
     
@@ -113,6 +113,17 @@ public class GerenciadorDeDados {
     public void ClienteDevolve (Cliente cliente, List<DVD> dvds, LocalDate dataLocacao) {
         cliente.Devolver(dvds, dataLocacao);      
     }    
+
+    public void PrintClientes () {
+        System.out.println("Clientes:");
+        
+        for(Cliente cliente : dados.clientes) {
+            cliente.Print();
+            System.out.println("");
+        }
+    }    
+    
+    /*** Dados ***/
     
     public void Abrir() {
         try {

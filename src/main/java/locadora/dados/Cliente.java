@@ -50,5 +50,14 @@ public class Cliente implements java.io.Serializable {
         
         if (locacoes.contains(locacao))
             locacoes.remove(locacao);
-    }    
+    }   
+    
+    
+    public void Print () {
+        System.out.println("Nome: " + nome + " " + sobrenome);
+        System.out.println("CPF: " + cpf); 
+        System.out.println("Data de Nascimento: " + dataNascimento); 
+        System.out.println("Endereço: " + endereço); 
+        System.out.println("Telefone: " + telefone);      
+    }      
 }

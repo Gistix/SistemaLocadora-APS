@@ -5,6 +5,7 @@
  */
 package locadora.dados;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Giovanni
  */
 public class Dados implements java.io.Serializable {   
-    List<DVD> dvds;
-    List<Cliente> clientes;
-    List<Estoque> estoque; 
+    List<DVD> dvds = new ArrayList<DVD>();
+    List<Cliente> clientes = new ArrayList<Cliente>();
+    List<Estoque> estoque = new ArrayList<Estoque>();
 }
