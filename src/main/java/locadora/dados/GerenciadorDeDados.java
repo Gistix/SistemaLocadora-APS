@@ -80,22 +80,29 @@ public class GerenciadorDeDados {
             estoque.AdicionarQuantidade(quantidade);    
     }    
     
-    /*** DVD ***/
-    
+    /*** DVD ***/   
     public void CadastrarDVD (String titulo, LocalDate dataLancamento, int quantidade){ 
         DVD dvd = new DVD (titulo, dataLancamento);
         
         if (!dados.dvds.contains(dvd)) {
             dados.dvds.add(dvd);
         } else {
-            // O DVD já existe, nesse caso vamos a dicionar ao estoque (ao invez de 1, teremos 2 disponíveis)
+            // O DVD já existe, nesse caso vamos a dicionar ao estoque (dai ao invez de 1, teremos 2 disponíveis)
         }
         
         AdicionarEstoque(dvd, quantidade);
     }
 
-    /*** Cliente ***/
+    public void PrintDVDs () {
+        System.out.println("DVDs:");
+        
+        for(DVD dvd : dados.dvds) {
+            dvd.Print();
+            System.out.println("");
+        }        
+    }
     
+    /*** Cliente ***/   
     public void CadastrarCliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, String endereço, String telefone){ 
         Cliente cliente = new Cliente(nome, sobrenome, cpf, dataNascimento, endereço, telefone);
         
@@ -114,6 +121,29 @@ public class GerenciadorDeDados {
         cliente.Devolver(dvds, dataLocacao);      
     }    
 
+    public Object[][] TabelarClientes () {
+        List<Cliente> clientes = dados.clientes; 
+        
+        Object[][] tabela = new Object[clientes.size()][];
+        
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);
+            tabela[i] = new Object[] {cliente.nome + " " + cliente.sobrenome, cliente.cpf, "teste"};
+        }
+        
+        return tabela;
+    }       
+    
+    public List<String> ListarClientes () {
+        List<String> nomes = new ArrayList<String>();
+        
+        for(Cliente cliente : dados.clientes) {
+            nomes.add(cliente.nome);
+        }
+        
+        return nomes;
+    }      
+    
     public void PrintClientes () {
         System.out.println("Clientes:");
         

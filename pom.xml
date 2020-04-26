@@ -11,4 +11,11 @@
         <maven.compiler.target>9</maven.compiler.target>
     </properties>
     <name>SistemaLocadora-APS</name>
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>0.31</version>
+        </dependency>
+    </dependencies>
 </project>

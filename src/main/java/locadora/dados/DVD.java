@@ -16,8 +16,8 @@ import java.util.Objects;
  */
 public class DVD implements java.io.Serializable {
     //private int codigo;
-    private String titulo;   
-    private LocalDate dataLancamento;      
+    String titulo;   
+    LocalDate dataLancamento;      
     /*List<Ator> atores;
      
     DVD (int codigo, String titulo, LocalDate dataLancamento, List<Ator> atores) {
@@ -31,43 +31,10 @@ public class DVD implements java.io.Serializable {
         //this.codigo = codigo;
         this.titulo = titulo;
         this.dataLancamento = dataLancamento; 
-    }  
+    } 
     
-    /*@Override
-    public boolean equals(final Object o) {     
-        if (o == null || getClass() != o.getClass()) 
-            return false;
- 
-        if (this == o)
-            return true;
-        
-        DVD dvd = (DVD) o;
-        return (getTitulo() == dvd.getTitulo()) && (getDataLancamento() == dvd.getDataLancamento());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTitulo(), getDataLancamento());
-    }*/
-
-    /**
-     * @return the codigo
-     */
-    /*public int getCodigo() {
-        return codigo;
-    }*/
-
-    /**
-     * @return the titulo
-     */
-    public String getTitulo() {
-        return titulo;
-    }
-
-    /**
-     * @return the dataLancamento
-     */
-    public LocalDate getDataLancamento() {
-        return dataLancamento;
-    }
+    public void Print () {
+        System.out.println("Nome: " + titulo);
+        System.out.println("Data de Lançamento: " + dataLancamento);      
+    } 
 }
