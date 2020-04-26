@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import locadora.dados.*;
-import locadora.ui.InterfaceInicio;
+import locadora.ui.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -18,6 +18,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
     static GerenciadorDeDados gerenciadorDeDados = new GerenciadorDeDados();
+    static InterfaceInicio interfaceInicio;
     
     public static void main(String[] args) {
         // A idéia é todo o código rolar aqui, dai a gente abre as janelas por aqui
@@ -55,10 +56,22 @@ public class Main {
 
         //com.formdev.flatlaf.FlatLaf.updateUI();        
         
-        InterfaceInicio interfaceInicio = new InterfaceInicio();
+        interfaceInicio = new InterfaceInicio();
         interfaceInicio.setLocationRelativeTo(null);
         interfaceInicio.setVisible(true);            
         
         interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
+    }
+    
+    public static void BotaoNovo (int aba) {
+        if (aba == 0) {
+            DialogoAddCliente dialogoAddCliente = new DialogoAddCliente(interfaceInicio, true);
+            dialogoAddCliente.setLocationRelativeTo(interfaceInicio);
+            dialogoAddCliente.setVisible(true);
+        } else {           
+            DialogoAddFilme dialogoAddFilme = new DialogoAddFilme(interfaceInicio, true);
+            dialogoAddFilme.setLocationRelativeTo(interfaceInicio);
+            dialogoAddFilme.setVisible(true);           
+        }
     }
 }
