@@ -10,15 +10,15 @@ package locadora.dados;
  * @author Giovanni
  */
 public class Endereco implements java.io.Serializable {
-    String logadouro;
+    String logradouro;
     int numero;
     String complemento;
     String cidade;
     String bairro;
     String cep;
 
-    public Endereco (String logadouro, int numero, String complemento, String cidade, String bairro, String cep) {
-        this.logadouro = logadouro;
+    public Endereco (String logradouro, int numero, String complemento, String cidade, String bairro, String cep) {
+        this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
         this.cidade = cidade;
@@ -27,7 +27,7 @@ public class Endereco implements java.io.Serializable {
     }
 
     public void Print () {
-        System.out.println("Endereço: " + logadouro + ", " + numero);
+        System.out.println("Endereço: " + logradouro + ", " + numero);
         
         if (!complemento.equals(""))
             System.out.println("Complemento: " + complemento); 

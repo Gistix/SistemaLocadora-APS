@@ -5,6 +5,10 @@
  */
 package locadora.ui;
 
+import java.time.LocalDate;
+import locadora.Main;
+import locadora.dados.Endereco;
+
 /**
  *
  * @author Giovanni
@@ -36,11 +40,21 @@ public class DialogoAddCliente extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         nome_cliente_ct = new javax.swing.JTextField();
         sobr_cliente_ct = new javax.swing.JTextField();
-        cpf_ct = new javax.swing.JTextField();
-        data_nasc_cliente_ct = new javax.swing.JTextField();
-        endereco_ct = new javax.swing.JTextField();
-        telefone_ct = new javax.swing.JTextField();
+        logradouro_ct = new javax.swing.JTextField();
         confirmar_cadastro_cliente_bt = new javax.swing.JButton();
+        nascimento_ct = new javax.swing.JFormattedTextField();
+        cpf_ct = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        numero_ct = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        bairro_ct = new javax.swing.JTextField();
+        nada = new javax.swing.JLabel();
+        cidade_ct = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        complemento_ct = new javax.swing.JTextField();
+        cep_ct = new javax.swing.JFormattedTextField();
+        jLabel10 = new javax.swing.JLabel();
+        telefone_ct = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Novo Cliente");
@@ -58,9 +72,49 @@ public class DialogoAddCliente extends javax.swing.JDialog {
 
         jLabel8.setText("Telefone:");
 
-        endereco_ct.setToolTipText("");
+        logradouro_ct.setToolTipText("");
 
         confirmar_cadastro_cliente_bt.setText("Cadastrar cliente");
+        confirmar_cadastro_cliente_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmar_cadastro_cliente_btActionPerformed(evt);
+            }
+        });
+
+        try {
+            nascimento_ct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            cpf_ct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel1.setText("Número:");
+
+        jLabel2.setText("Bairro:");
+
+        nada.setText("Cidade:");
+
+        jLabel9.setText("Complemento");
+
+        try {
+            cep_ct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        cep_ct.setToolTipText("");
+
+        jLabel10.setText("CEP:");
+
+        try {
+            telefone_ct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,36 +123,54 @@ public class DialogoAddCliente extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(confirmar_cadastro_cliente_bt)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(confirmar_cadastro_cliente_bt))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(endereco_ct, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(logradouro_ct, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(numero_ct))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(telefone_ct))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 76, Short.MAX_VALUE))
+                            .addComponent(bairro_ct)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addGap(112, 112, 112)
-                            .addComponent(jLabel4))
-                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel5)
-                            .addGap(119, 119, 119)
-                            .addComponent(jLabel6))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cpf_ct, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nome_cliente_ct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(sobr_cliente_ct, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                .addComponent(data_nasc_cliente_ct)))))
+                            .addComponent(cpf_ct, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(nome_cliente_ct))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(sobr_cliente_ct, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(nascimento_ct, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cep_ct, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cidade_ct))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(complemento_ct)
+                            .addComponent(telefone_ct, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nada)
+                                    .addComponent(jLabel10))
+                                .addGap(149, 149, 149)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,23 +190,54 @@ public class DialogoAddCliente extends javax.swing.JDialog {
                     .addComponent(jLabel6))
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cpf_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(data_nasc_cliente_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nascimento_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpf_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(endereco_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logradouro_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numero_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bairro_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nada)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cidade_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(complemento_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cep_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(telefone_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(confirmar_cadastro_cliente_bt)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmar_cadastro_cliente_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmar_cadastro_cliente_btActionPerformed
+        String nome, sobrenome, cpf, telefone;
+        Endereco endereco;
+        LocalDate nascimento;
+        nome = nome_cliente_ct.getText();
+        sobrenome = sobr_cliente_ct.getText();
+        cpf = cpf_ct.getText();
+        nascimento = new LocalDate(FALTA AQUI GEOVÁ); // FALTA AQUI GEOVÁ, ARRUMA AI CARAIO.
+        endereco = new Endereco(logradouro_ct.getText(), Integer.parseInt(numero_ct.getText()), complemento_ct.getText(), cidade_ct.getText(), bairro_ct.getText(), cep_ct.getText());
+        telefone = telefone_ct.getText();
+        Main.NovoCliente(nome, sobrenome, cpf, LocalDate.MIN, endereco, telefone);
+    }//GEN-LAST:event_confirmar_cadastro_cliente_btActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,18 +283,28 @@ public class DialogoAddCliente extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bairro_ct;
+    private javax.swing.JFormattedTextField cep_ct;
+    private javax.swing.JTextField cidade_ct;
+    private javax.swing.JTextField complemento_ct;
     private javax.swing.JButton confirmar_cadastro_cliente_bt;
-    private javax.swing.JTextField cpf_ct;
-    private javax.swing.JTextField data_nasc_cliente_ct;
-    private javax.swing.JTextField endereco_ct;
+    private javax.swing.JFormattedTextField cpf_ct;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField logradouro_ct;
+    private javax.swing.JLabel nada;
+    private javax.swing.JFormattedTextField nascimento_ct;
     private javax.swing.JTextField nome_cliente_ct;
+    private javax.swing.JTextField numero_ct;
     private javax.swing.JTextField sobr_cliente_ct;
-    private javax.swing.JTextField telefone_ct;
+    private javax.swing.JFormattedTextField telefone_ct;
     // End of variables declaration//GEN-END:variables
 }

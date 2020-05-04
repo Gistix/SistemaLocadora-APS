@@ -32,27 +32,9 @@ public class DialogoAddFilme extends javax.swing.JDialog {
         titulo_ct = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         classificacao_opcoes = new javax.swing.JComboBox<>();
-        acao_cs = new javax.swing.JCheckBox();
-        drama_cs = new javax.swing.JCheckBox();
-        animacao_cs = new javax.swing.JCheckBox();
-        ficcao_cs = new javax.swing.JCheckBox();
-        aventura_cs = new javax.swing.JCheckBox();
-        romance_cs = new javax.swing.JCheckBox();
-        comedia_cs = new javax.swing.JCheckBox();
-        terror_cs = new javax.swing.JCheckBox();
-        port_br_cs = new javax.swing.JCheckBox();
-        port_pt_cs = new javax.swing.JCheckBox();
-        espanhol_cs = new javax.swing.JCheckBox();
-        ingles_cs = new javax.swing.JCheckBox();
-        frances_cs = new javax.swing.JCheckBox();
-        italiano_cs = new javax.swing.JCheckBox();
-        russo_cs = new javax.swing.JCheckBox();
-        japones_cs = new javax.swing.JCheckBox();
-        dt_lanc_ct = new javax.swing.JTextField();
         confirmar_cadastro_filme_bt = new javax.swing.JButton();
+        dt_lanc_ct = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Novo Filme");
@@ -63,48 +45,20 @@ public class DialogoAddFilme extends javax.swing.JDialog {
 
         jLabel8.setText("Data de lançamento:");
 
-        jLabel9.setText("Gênero: ");
-
-        jLabel10.setText("Idiomas disponiveis:");
-
         classificacao_opcoes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "L (Livre para todas as idades).", "Proibido para menores de 10 anos de idade.", "Proibido para menores de 12 anos de idade.", "Proibido para menores de 14 anos de idade.", "Proibido para menores de 16 anos de idade.", "Proibido para menores de 18 anos de idade." }));
 
-        acao_cs.setText("Ação");
-
-        drama_cs.setText("Drama");
-
-        animacao_cs.setText("Animação");
-
-        ficcao_cs.setText("Ficção Ciêntifica");
-
-        aventura_cs.setText("Aventura");
-
-        romance_cs.setText("Romance");
-
-        comedia_cs.setText("Comédia");
-
-        terror_cs.setText("Terror");
-
-        port_br_cs.setText("Português-BR");
-
-        port_pt_cs.setText("Português-PT");
-
-        espanhol_cs.setText("Espanhol");
-
-        ingles_cs.setText("Inglês");
-
-        frances_cs.setText("Francês");
-
-        italiano_cs.setText("Italiano");
-
-        russo_cs.setText("Russo");
-
-        japones_cs.setText("Japonês");
-
-        dt_lanc_ct.setToolTipText("00/00/2020");
-        dt_lanc_ct.setName(""); // NOI18N
-
         confirmar_cadastro_filme_bt.setText("Adicionar filme");
+        confirmar_cadastro_filme_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmar_cadastro_filme_btActionPerformed(evt);
+            }
+        });
+
+        try {
+            dt_lanc_ct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,104 +67,37 @@ public class DialogoAddFilme extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel8)
-                    .addComponent(dt_lanc_ct, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(titulo_ct, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(classificacao_opcoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(confirmar_cadastro_filme_bt))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(drama_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ficcao_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(romance_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(terror_cs))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(acao_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(animacao_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(aventura_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comedia_cs))
-                    .addComponent(jLabel10)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(port_br_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(port_pt_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(espanhol_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ingles_cs))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(frances_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(italiano_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(russo_cs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(japones_cs)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(confirmar_cadastro_filme_bt)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(titulo_ct, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(classificacao_opcoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(dt_lanc_ct, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(titulo_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(classificacao_opcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dt_lanc_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(acao_cs)
-                                    .addComponent(animacao_cs)
-                                    .addComponent(aventura_cs)
-                                    .addComponent(comedia_cs))
-                                .addGap(23, 23, 23))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(drama_cs)
-                                .addComponent(ficcao_cs)
-                                .addComponent(romance_cs)
-                                .addComponent(terror_cs)))
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(port_br_cs)
-                            .addComponent(port_pt_cs)
-                            .addComponent(espanhol_cs)
-                            .addComponent(ingles_cs))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(frances_cs)
-                            .addComponent(italiano_cs)
-                            .addComponent(russo_cs)
-                            .addComponent(japones_cs))))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titulo_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(classificacao_opcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dt_lanc_ct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(confirmar_cadastro_filme_bt)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -218,6 +105,10 @@ public class DialogoAddFilme extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmar_cadastro_filme_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmar_cadastro_filme_btActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmar_cadastro_filme_btActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,30 +154,12 @@ public class DialogoAddFilme extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox acao_cs;
-    private javax.swing.JCheckBox animacao_cs;
-    private javax.swing.JCheckBox aventura_cs;
     private javax.swing.JComboBox<String> classificacao_opcoes;
-    private javax.swing.JCheckBox comedia_cs;
     private javax.swing.JButton confirmar_cadastro_filme_bt;
-    private javax.swing.JCheckBox drama_cs;
-    private javax.swing.JTextField dt_lanc_ct;
-    private javax.swing.JCheckBox espanhol_cs;
-    private javax.swing.JCheckBox ficcao_cs;
-    private javax.swing.JCheckBox frances_cs;
-    private javax.swing.JCheckBox ingles_cs;
-    private javax.swing.JCheckBox italiano_cs;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JFormattedTextField dt_lanc_ct;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JCheckBox japones_cs;
-    private javax.swing.JCheckBox port_br_cs;
-    private javax.swing.JCheckBox port_pt_cs;
-    private javax.swing.JCheckBox romance_cs;
-    private javax.swing.JCheckBox russo_cs;
-    private javax.swing.JCheckBox terror_cs;
     private javax.swing.JTextField titulo_ct;
     // End of variables declaration//GEN-END:variables
 }
