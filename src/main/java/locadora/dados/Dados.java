@@ -7,13 +7,12 @@ package locadora.dados;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.HashMap;
 /**
  *
  * @author Giovanni
  */
 public class Dados implements java.io.Serializable {   
-    List<DVD> dvds = new ArrayList<DVD>();
+    HashMap<DVD, Integer> dvds = new HashMap<>();
     List<Cliente> clientes = new ArrayList<Cliente>();
-    List<Estoque> estoque = new ArrayList<Estoque>();
 }

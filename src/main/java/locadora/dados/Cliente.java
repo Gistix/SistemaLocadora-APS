@@ -18,12 +18,12 @@ public class Cliente implements java.io.Serializable {
     String sobrenome;
     String cpf;
     LocalDate dataNascimento;
-    String endereço;
+    Endereco endereço;
     String telefone;
     
-    List<Locacao> locacoes;
-    
-    Cliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, String endereço, String telefone) {   
+    Locacao locacao;
+
+    Cliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereço, String telefone) {   
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;        
@@ -33,23 +33,13 @@ public class Cliente implements java.io.Serializable {
     }
     
     public void Alugar (List<DVD> dvds, LocalDate dataLocacao) {
-        Locacao locacao = new Locacao(dvds, dataLocacao);
-        
-        if (locacoes == null)
-            locacoes = new ArrayList<Locacao>();
-        
-        if (!locacoes.contains(locacao)) {
-            locacoes.add(locacao);
-        } else {
-            System.out.println("Cliente " + nome + " " + sobrenome + " já alugou o(s) DVD.");  
-        }
+        if (locacao == null)
+            this.locacao = new Locacao(dvds, dataLocacao); 
     }
     
     public void Devolver (List<DVD> dvds, LocalDate dataLocacao) {
-        Locacao locacao = new Locacao(dvds, dataLocacao);
-        
-        if (locacoes.contains(locacao))
-            locacoes.remove(locacao);
+        if (locacao == new Locacao(dvds, dataLocacao))
+            locacao = null;
     }   
     
     
@@ -57,7 +47,8 @@ public class Cliente implements java.io.Serializable {
         System.out.println("Nome: " + nome + " " + sobrenome);
         System.out.println("CPF: " + cpf); 
         System.out.println("Data de Nascimento: " + dataNascimento); 
-        System.out.println("Endereço: " + endereço); 
+        System.out.println("Endereço: "); 
+        endereço.Print();       
         System.out.println("Telefone: " + telefone);      
     }      
 }

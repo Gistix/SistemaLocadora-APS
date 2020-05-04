@@ -10,6 +10,8 @@ import java.io.*;
 import java.time.LocalDate; 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,69 +44,71 @@ public class GerenciadorDeDados {
         
         return 0;
     }
- 
-    /*** Estoque ***/    
-    /**
-    * Cria uma lista com a todos os codigos dos estoques cadastrados.
-    */
-    List<Integer> CodigosEstoque () { // C
-        List<Integer> codigos = new ArrayList<>();
-        
-        for(Estoque estoque : dados.estoque) {
-            codigos.add(estoque.getCodigo());
-        }
-        
-        return codigos;
-    }   
-     
-    /**
-    * Procura e retorna a instância de estoque que possui tal dvd.
-    */    
-    private Estoque ProcurarEstoque (DVD dvd){
-        for (Estoque estoque : dados.estoque) {
-            if (dvd == estoque.getDvd())
-                return estoque;
-        }
-        
-        return null;
-    }   
-    
-    public void AdicionarEstoque (DVD dvd, int quantidade){ 
-        Estoque estoque = ProcurarEstoque(dvd); // Procura qual instancia do Estoque é referente a este DVD
-            
-        if (estoque == null)  {
-            int codigo = GerarCodigo(CodigosEstoque()); // Gera um menor codigo novo possível
-            
-            dados.estoque.add(new Estoque(codigo, dvd, quantidade));
-        } else
-            estoque.AdicionarQuantidade(quantidade);    
-    }    
     
     /*** DVD ***/   
     public void CadastrarDVD (String titulo, LocalDate dataLancamento, int quantidade){ 
         DVD dvd = new DVD (titulo, dataLancamento);
         
-        if (!dados.dvds.contains(dvd)) {
-            dados.dvds.add(dvd);
+        if (!dados.dvds.containsKey(dvd)) {
+            dados.dvds.put(dvd, quantidade);
         } else {
-            // O DVD já existe, nesse caso vamos a dicionar ao estoque (dai ao invez de 1, teremos 2 disponíveis)
+            dados.dvds.replace(dvd, dados.dvds.get(dvd) + quantidade);
         }
-        
-        AdicionarEstoque(dvd, quantidade);
     }
 
+    public void RemoverDVD (String nome) {
+        for(Map.Entry<DVD, Integer> dvdMap : dados.dvds.entrySet()) {
+            DVD dvd = dvdMap.getKey();
+            
+            if (dvd.titulo.equals(nome)) {
+                dados.dvds.remove(dvd, dvdMap.getValue());
+                return;
+            }
+        }
+    }    
+ 
+    public void RemoverUmDVD (String nome) {        
+        for(Map.Entry<DVD, Integer> dvdMap : dados.dvds.entrySet()) {
+            DVD dvd = dvdMap.getKey();
+             
+            if (dvd.titulo.equals(nome)) {
+                dados.dvds.replace(dvd, dvdMap.getValue() - 1);
+                return;
+            }
+        }
+    }      
+    
+    public Object[][] TabelarDVDs () {
+        HashMap<DVD, Integer> dvds = dados.dvds; 
+        
+        Object[][] tabela = new Object[dvds.size()][];
+        
+        int i = 0;
+        
+         for(Map.Entry<DVD, Integer> dvdMap : dvds.entrySet()) {
+            DVD dvd = dvdMap.getKey();
+            int quantidade = dvdMap.getValue();
+            
+            tabela[i] = new Object[] {dvd.titulo, dvd.dataLancamento, quantidade};
+            i++;
+        }
+        
+        return tabela;
+    }   
+    
     public void PrintDVDs () {
         System.out.println("DVDs:");
         
-        for(DVD dvd : dados.dvds) {
-            dvd.Print();
+        for(Map.Entry<DVD, Integer> dvd : dados.dvds.entrySet()) {
+            dvd.getKey().Print();
+            System.out.println("Quantidade: " + dvd.getValue());            
             System.out.println("");
-        }        
+        }
     }
     
     /*** Cliente ***/   
-    public void CadastrarCliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, String endereço, String telefone){ 
-        Cliente cliente = new Cliente(nome, sobrenome, cpf, dataNascimento, endereço, telefone);
+    public void CadastrarCliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco, String telefone){ 
+        Cliente cliente = new Cliente(nome, sobrenome, cpf, dataNascimento, endereco, telefone);
         
         if (!dados.clientes.contains(cliente)) {
             dados.clientes.add(cliente);
@@ -113,13 +117,49 @@ public class GerenciadorDeDados {
         }
     }
     
-    public void ClienteAluga (Cliente cliente, List<DVD> dvds, LocalDate dataLocacao) {
+    public Cliente ProcurarClienteNome (String nome) {
+        for(Cliente cliente : dados.clientes) {
+            if (cliente.nome.equals(nome))
+                return cliente;
+        }
+        
+        return null;
+    }
+
+    public Cliente ProcurarClienteCPF (String cpf) {
+        for(Cliente cliente : dados.clientes) {
+            if (cliente.cpf.equals(cpf))
+                return cliente;
+        }
+        
+        return null;        
+    }
+    
+    public void RemoverCliente (Cliente cliente) {
+        for(Cliente cliente2 : dados.clientes) {
+            if (cliente2.equals(cliente)) {
+                dados.clientes.remove(cliente);
+                return;
+            }
+        }        
+    }
+
+    public void RemoverCliente (String cpf) {
+        for(Cliente cliente : dados.clientes) {
+            if (cliente.cpf.equals(cpf)) {
+                dados.clientes.remove(cliente);
+                return;
+            }
+        }
+    }
+    
+    /*public void ClienteAluga (Cliente cliente, List<DVD> dvds, LocalDate dataLocacao) {
         cliente.Alugar(dvds, dataLocacao);    
     }
  
     public void ClienteDevolve (Cliente cliente, List<DVD> dvds, LocalDate dataLocacao) {
         cliente.Devolver(dvds, dataLocacao);      
-    }    
+    }*/
 
     public Object[][] TabelarClientes () {
         List<Cliente> clientes = dados.clientes; 

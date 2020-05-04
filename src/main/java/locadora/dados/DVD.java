@@ -24,7 +24,7 @@ public class DVD implements java.io.Serializable {
         this.codigo = codigo;
         this.titulo = titulo;
         this.dataLancamento = dataLancamento;
-        this.atores = atores;       
+        this.atores = atores;
     }*/
     
     DVD (/*int codigo,*/ String titulo, LocalDate dataLancamento) {
@@ -37,4 +37,36 @@ public class DVD implements java.io.Serializable {
         System.out.println("Nome: " + titulo);
         System.out.println("Data de Lançamento: " + dataLancamento);      
     } 
+    
+    @Override
+    public boolean equals(Object o) { 
+  
+        // If the object is compared with itself then return true   
+        if (o == this) { 
+            return true; 
+        } 
+
+        if (o == null)
+            return false;
+ 
+        if (!(o instanceof DVD))
+            return false;        
+        
+        /*if (!(o instanceof DVD)) { 
+            return false; 
+        }         if (!(o instanceof DVD)) { 
+            return false; 
+        }*/
+        
+        // typecast o to Complex so that we can compare data members  
+        DVD d = (DVD) o; 
+          
+        // Compare the data members and return accordingly  
+        return titulo.equals(d.titulo) && dataLancamento.equals(d.dataLancamento); 
+    } 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(titulo, dataLancamento);
+    }    
 }

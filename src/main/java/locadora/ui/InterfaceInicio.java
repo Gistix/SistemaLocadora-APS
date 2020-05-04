@@ -39,12 +39,14 @@ public class InterfaceInicio extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaClientes = new javax.swing.JTable();
         painelFilmes = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lista_filmes = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaFilmes = new javax.swing.JTable();
         painelBotoes = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        btnAlugar = new javax.swing.JButton();
+        btnDevolver = new javax.swing.JButton();
         painelPesquisa = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
         pesquisaNome = new javax.swing.JRadioButton();
@@ -54,6 +56,13 @@ public class InterfaceInicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Locadora");
 
+        guia.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                guiaStateChanged(evt);
+            }
+        });
+
+        tabelaClientes.setAutoCreateRowSorter(true);
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -65,7 +74,14 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 "Nome", "CPF", "Data Última Locação"
             }
         ));
-        tabelaClientes.setColumnSelectionAllowed(true);
+        tabelaClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaClientes.getTableHeader().setReorderingAllowed(false);
+        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tabelaClientes);
 
         javax.swing.GroupLayout painelClientesLayout = new javax.swing.GroupLayout(painelClientes);
@@ -87,28 +103,51 @@ public class InterfaceInicio extends javax.swing.JFrame {
 
         guia.addTab("Clientes", painelClientes);
 
-        lista_filmes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        tabelaFilmes.setAutoCreateRowSorter(true);
+        tabelaFilmes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nome", "Data de Lançamento", "Qtd. Disponível"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane2.setViewportView(lista_filmes);
+        tabelaFilmes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaFilmes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaFilmes.getTableHeader().setReorderingAllowed(false);
+        tabelaFilmes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaFilmesMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabelaFilmes);
 
         javax.swing.GroupLayout painelFilmesLayout = new javax.swing.GroupLayout(painelFilmes);
         painelFilmes.setLayout(painelFilmesLayout);
         painelFilmesLayout.setHorizontalGroup(
             painelFilmesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelFilmesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFilmesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painelFilmesLayout.setVerticalGroup(
             painelFilmesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFilmesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         guia.addTab("Filmes", painelFilmes);
@@ -124,10 +163,28 @@ public class InterfaceInicio extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
         btnEditar.setPreferredSize(new java.awt.Dimension(80, 22));
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.setPreferredSize(new java.awt.Dimension(80, 22));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnAlugar.setText("Alugar");
+        btnAlugar.setEnabled(false);
+
+        btnDevolver.setText("Devolver");
+        btnDevolver.setEnabled(false);
+        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
@@ -135,16 +192,22 @@ public class InterfaceInicio extends javax.swing.JFrame {
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelBotoesLayout.setVerticalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
-                .addContainerGap(140, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnAlugar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDevolver)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,6 +296,48 @@ public class InterfaceInicio extends javax.swing.JFrame {
         Main.BotaoNovo(guia.getSelectedIndex());
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        Main.BotaoExcluir(guia.getSelectedIndex(), tabelaClientes, tabelaFilmes);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDevolverActionPerformed
+
+    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+        atualizarBotoesCliente();
+    }//GEN-LAST:event_tabelaClientesMouseClicked
+
+    private void guiaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_guiaStateChanged
+        if (guia.getSelectedIndex() == 0) {
+            atualizarBotoesCliente();
+        } else {
+            atualizarBotoesFilme();      
+        }
+    }//GEN-LAST:event_guiaStateChanged
+
+    private void tabelaFilmesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFilmesMouseClicked
+        atualizarBotoesFilme();
+    }//GEN-LAST:event_tabelaFilmesMouseClicked
+
+    void atualizarBotoesCliente() {
+        if (tabelaClientes.getSelectedRow() != -1) {
+            btnAlugar.setEnabled(true);            
+            btnEditar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
+    }
+
+    void atualizarBotoesFilme() {
+        btnAlugar.setEnabled(false);
+        btnDevolver.setEnabled(false);
+         
+        if (tabelaFilmes.getSelectedRow() != -1) {          
+            btnEditar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -287,16 +392,33 @@ public class InterfaceInicio extends javax.swing.JFrame {
         tabelaClientes.setModel(model);
     }
     
+    public void AtualizarListaFilmes(Object[][] tabela) {
+        String[] colunas = new String[] {
+            "Nome", "Data de Lançamento", "Qtd. Disponível"
+        };        
+
+        DefaultTableModel model = new DefaultTableModel(tabela, colunas) {
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        };
+        
+        tabelaFilmes.setModel(model);
+    }    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlugar;
+    private javax.swing.JButton btnDevolver;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnProcurar;
     private javax.swing.ButtonGroup grupoBtnPesquisa;
     private javax.swing.JTabbedPane guia;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JList<String> lista_filmes;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelClientes;
     private javax.swing.JPanel painelFilmes;
@@ -304,6 +426,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
     private javax.swing.JRadioButton pesquisaCPF;
     private javax.swing.JRadioButton pesquisaNome;
     private javax.swing.JTable tabelaClientes;
+    private javax.swing.JTable tabelaFilmes;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }
