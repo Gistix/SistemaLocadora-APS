@@ -17,7 +17,8 @@ import java.util.Objects;
 public class DVD implements java.io.Serializable {
     //private int codigo;
     String titulo;   
-    LocalDate dataLancamento;      
+    LocalDate dataLancamento;
+    Classificacao classificacao;
     /*List<Ator> atores;
      
     DVD (int codigo, String titulo, LocalDate dataLancamento, List<Ator> atores) {
@@ -27,16 +28,37 @@ public class DVD implements java.io.Serializable {
         this.atores = atores;
     }*/
     
-    DVD (/*int codigo,*/ String titulo, LocalDate dataLancamento) {
+    DVD (/*int codigo,*/ String titulo, LocalDate dataLancamento, Classificacao classificacao) {
         //this.codigo = codigo;
         this.titulo = titulo;
         this.dataLancamento = dataLancamento; 
+        this.classificacao = classificacao;
     } 
     
     public void Print () {
         System.out.println("Nome: " + titulo);
-        System.out.println("Data de Lançamento: " + dataLancamento);      
+        System.out.println("Data de Lançamento: " + dataLancamento);
+        System.out.println("Classificação: " + ClassificacaoToString());        
     } 
+    
+    public String ClassificacaoToString () {
+        switch (classificacao) {
+            case Livre:
+                return "L (Livre para todas as idades).";
+            case Proibido10:    
+                return "Proibido para menores de 10 anos de idade.";
+            case Proibido12:    
+                return "Proibido para menores de 12 anos de idade.";
+            case Proibido14:    
+                return "Proibido para menores de 14 anos de idade.";
+            case Proibido16:    
+                return "Proibido para menores de 16 anos de idade.";
+            case Proibido18:    
+                return "Proibido para menores de 18 anos de idade.";
+            default:
+                return "";
+        }
+    }
     
     @Override
     public boolean equals(Object o) { 

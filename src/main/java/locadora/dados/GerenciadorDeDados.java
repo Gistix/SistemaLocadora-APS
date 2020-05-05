@@ -46,8 +46,8 @@ public class GerenciadorDeDados {
     }
     
     /*** DVD ***/   
-    public void CadastrarDVD (String titulo, LocalDate dataLancamento, int quantidade){ 
-        DVD dvd = new DVD (titulo, dataLancamento);
+    public void CadastrarDVD (String titulo, LocalDate dataLancamento, Classificacao classificacao, int quantidade){ 
+        DVD dvd = new DVD (titulo, dataLancamento, classificacao);
         
         if (!dados.dvds.containsKey(dvd)) {
             dados.dvds.put(dvd, quantidade);

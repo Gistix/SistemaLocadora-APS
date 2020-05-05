@@ -36,16 +36,16 @@ public class Main {
         
         //gerenciadorDeDados.Abrir();
         
-        gerenciadorDeDados.CadastrarDVD("Matrix", LocalDate.of(1999, 5, 21), 3);    
-        gerenciadorDeDados.CadastrarDVD("Matrix", LocalDate.of(1999, 5, 21), 1);         
-        gerenciadorDeDados.CadastrarDVD("Mad Max: Estrada da Fúria", LocalDate.of(2015, 05, 14), 2);
-        gerenciadorDeDados.CadastrarDVD("Shrek", LocalDate.of(2001, 6, 22), 1); 
-        gerenciadorDeDados.CadastrarDVD("V de Vingança", LocalDate.of(2005, 4, 7), 1);         
-        gerenciadorDeDados.CadastrarDVD("Eu, Robo", LocalDate.of(2004, 8, 6), 2); 
-        gerenciadorDeDados.CadastrarDVD("Exterminador do Futuro 2: O Julgamento Final", LocalDate.of(1991, 8, 30), 2);
-        gerenciadorDeDados.CadastrarDVD("Interstellar", LocalDate.of(2014, 11, 6), 2);
-        gerenciadorDeDados.CadastrarDVD("Os Incríveis", LocalDate.of(2004, 12, 10), 1); 
-        gerenciadorDeDados.CadastrarDVD("Toy Story", LocalDate.of(1995, 12, 22), 1);        
+        gerenciadorDeDados.CadastrarDVD("Matrix", LocalDate.of(1999, 5, 21), Classificacao.Proibido12, 3);    
+        gerenciadorDeDados.CadastrarDVD("Matrix", LocalDate.of(1999, 5, 21), Classificacao.Proibido12, 1);         
+        gerenciadorDeDados.CadastrarDVD("Mad Max: Estrada da Fúria", LocalDate.of(2015, 05, 14), Classificacao.Proibido16, 2);
+        gerenciadorDeDados.CadastrarDVD("Shrek", LocalDate.of(2001, 6, 22), Classificacao.Livre, 1); 
+        gerenciadorDeDados.CadastrarDVD("V de Vingança", LocalDate.of(2005, 4, 7), Classificacao.Proibido16, 1);         
+        gerenciadorDeDados.CadastrarDVD("Eu, Robo", LocalDate.of(2004, 8, 6), Classificacao.Proibido12, 2); 
+        gerenciadorDeDados.CadastrarDVD("Exterminador do Futuro 2: O Julgamento Final", LocalDate.of(1991, 8, 30), Classificacao.Proibido12, 2);
+        gerenciadorDeDados.CadastrarDVD("Interstellar", LocalDate.of(2014, 11, 6), Classificacao.Proibido10, 2);
+        gerenciadorDeDados.CadastrarDVD("Os Incríveis", LocalDate.of(2004, 12, 10), Classificacao.Livre, 1); 
+        gerenciadorDeDados.CadastrarDVD("Toy Story", LocalDate.of(1995, 12, 22), Classificacao.Livre, 1);        
         //gerenciadorDeDados.PrintClientes();
         gerenciadorDeDados.PrintDVDs();
         
@@ -63,13 +63,20 @@ public class Main {
         }
 
         //com.formdev.flatlaf.FlatLaf.updateUI();        
+
+        /* Create and display the form */
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InterfaceInicio().setVisible(true);
+            }
+        });*/
         
         interfaceInicio = new InterfaceInicio();
         interfaceInicio.setLocationRelativeTo(null);
         interfaceInicio.setVisible(true);            
         
         interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
-        interfaceInicio.AtualizarListaFilmes(gerenciadorDeDados.TabelarDVDs());        
+        interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());        
     }
     
     public static void BotaoNovo (int aba) {
@@ -98,12 +105,23 @@ public class Main {
             
             gerenciadorDeDados.RemoverDVD(nome);
             
-            interfaceInicio.AtualizarListaFilmes(gerenciadorDeDados.TabelarDVDs());  
+            interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());  
         }
+    }
+    
+    public static void AtualizarClientes() {
+        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
     }
     
     public static boolean NovoCliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco, String telefone) {
         gerenciadorDeDados.CadastrarCliente(nome, sobrenome, cpf, dataNascimento, endereco, telefone);
+        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
+        return true;
+    } 
+    
+    public static boolean NovoDVD (String titulo, LocalDate dataLancamento, Classificacao classificacao, int quantidade) {
+        gerenciadorDeDados.CadastrarDVD(titulo, dataLancamento, classificacao, quantidade);
+        interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());
         return true;
     }    
 }
