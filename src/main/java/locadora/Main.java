@@ -6,6 +6,7 @@
 package locadora;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -83,6 +84,10 @@ public class Main {
     public static LocalDate Data () {
         return LocalDate.now();
     }    
+
+    public static Map.Entry<DVD, Integer> GetDVD (String titulo) {
+        return gerenciadorDeDados.ProcurarDVD(titulo);
+    } 
     
     public static Cliente GetCliente (String cpf) {
         return gerenciadorDeDados.ProcurarClienteCPF(cpf);
@@ -137,6 +142,10 @@ public class Main {
     public static void AtualizarDVDs() {
         interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());
     }
+    
+    public static void AtualizarDVDsPesquisa(String titulo) {
+        interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs(gerenciadorDeDados.ProcurarDVDs(titulo)));
+    }   
     
     public static boolean NovoCliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco, String telefone) {
         gerenciadorDeDados.CadastrarCliente(nome, sobrenome, cpf, dataNascimento, endereco, telefone);

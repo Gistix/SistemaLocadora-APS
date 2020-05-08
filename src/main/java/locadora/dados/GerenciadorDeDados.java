@@ -64,6 +64,30 @@ public class GerenciadorDeDados {
         
         return null;        
     }
+
+    public HashMap<DVD, Integer> ProcurarDVDs (String titulo) {
+        HashMap<DVD, Integer> dvds = new HashMap<>();
+        
+        titulo = titulo.toLowerCase();
+
+        for(Map.Entry<DVD, Integer> dvdMap : dados.dvds.entrySet())
+            if (dvdMap.getKey().titulo.toLowerCase().indexOf(titulo) != -1)
+                dvds.put(dvdMap.getKey(), dvdMap.getValue());
+        
+        return dvds;
+    }
+
+    public Map.Entry<DVD, Integer> ProcurarDVD (String titulo) {
+        HashMap<DVD, Integer> dvds = new HashMap<>();
+        
+        titulo = titulo.toLowerCase();
+
+        for(Map.Entry<DVD, Integer> dvdMap : dados.dvds.entrySet())
+            if (dvdMap.getKey().titulo.toLowerCase().indexOf(titulo) != -1)
+                return dvdMap;
+        
+        return null;
+    }
     
     public DVD GetFilme (int index) {
         HashMap<DVD, Integer> dvds = dados.dvds; 
@@ -124,6 +148,22 @@ public class GerenciadorDeDados {
         
         return tabela;
     }   
+
+    public Object[][] TabelarDVDs (HashMap<DVD, Integer> dvds) {
+        Object[][] tabela = new Object[dvds.size()][];
+        
+        int i = 0;
+        
+         for(Map.Entry<DVD, Integer> dvdMap : dvds.entrySet()) {
+            DVD dvd = dvdMap.getKey();
+            int quantidade = dvdMap.getValue();
+            
+            tabela[i] = new Object[] {dvd.titulo, dvd.dataLancamento, quantidade};
+            i++;
+        }
+        
+        return tabela;
+    }
     
     public void PrintDVDs () {
         System.out.println("DVDs:");

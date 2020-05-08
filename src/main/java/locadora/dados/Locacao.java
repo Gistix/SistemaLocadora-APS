@@ -27,7 +27,7 @@ public class Locacao implements java.io.Serializable {
     /**
      * @return the dvds
      */
-    public List<DVD> getDvds() {
+    public List<DVD> GetDvds() {
         return dvds;
     }
 
@@ -38,13 +38,19 @@ public class Locacao implements java.io.Serializable {
     public String ToString() {
         String string = "";
         
+        int count = dvds.size();
+        
         for (int i = 0; i < dvds.size(); i++) {
             DVD dvd = dvds.get(i);
             
+            String titulo = dvd.titulo;
+            
             if (i == 0)
-                string += dvd.titulo;
+                string += titulo;
+            else if (count > 1 && i == count-1)
+                string += " e " + titulo;
             else
-                string += ", " + dvd.titulo;            
+                string += ", " + titulo;
         }
         
         return string;

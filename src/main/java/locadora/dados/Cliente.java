@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import static java.time.temporal.ChronoUnit.DAYS;
+import java.util.Map;
+import locadora.Main;
 
 /**
  *
@@ -34,14 +36,26 @@ public class Cliente implements java.io.Serializable {
     }
     
     public void Alugar (List<DVD> dvds, LocalDate dataLocacao) {
-        if (locacao == null)
+        if (locacao == null) {
+            for (DVD dvd : dvds) {
+                Map.Entry<DVD, Integer> dvdEntry = Main.GetDVD(dvd.titulo);
+                dvdEntry.setValue(dvdEntry.getValue() - 1);
+            }
+            
             this.locacao = new Locacao(dvds, dataLocacao); 
+        }
     }
-    
-    public void Devolver (List<DVD> dvds, LocalDate dataLocacao) {
-        if (locacao == new Locacao(dvds, dataLocacao))
+
+    public void Devolver () {
+        if (locacao != null) {
+            for (DVD dvd : locacao.GetDvds()) {
+                Map.Entry<DVD, Integer> dvdEntry = Main.GetDVD(dvd.titulo);
+                dvdEntry.setValue(dvdEntry.getValue() + 1);
+            }
+            
             locacao = null;
-    }   
+        }
+    }  
     
     public String Nome () {
         return nome;

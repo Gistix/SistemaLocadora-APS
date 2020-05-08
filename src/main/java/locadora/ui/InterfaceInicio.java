@@ -3,6 +3,7 @@ package locadora.ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
@@ -321,13 +322,20 @@ public class InterfaceInicio extends javax.swing.JFrame {
         Object[] options = {"Sim", "Cancelar"};
         
         int n = JOptionPane.showOptionDialog(this,
-            "Deseja devolver os filmes " + cliente.Locacao().ToString(),
+            "Deseja devolver os filmes " + cliente.Locacao().ToString() + " para o cliente " + cliente.Nome() + "?",
             "Devolução",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             null,     //do not use a custom Icon
             options,  //the titles of buttons
             options[0]); //default button title
+        
+        
+        if (n == 0) {
+            cliente.Devolver();
+            Main.AtualizarClientes();
+            Main.AtualizarDVDs();
+        }
     }//GEN-LAST:event_btnDevolverActionPerformed
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
@@ -347,12 +355,24 @@ public class InterfaceInicio extends javax.swing.JFrame {
             atualizarBotoesFilme();
         } else {
             int[] selecionados = tabelaFilmes.getSelectedRows();
-            
+ 
             if (selecionados.length > 0 && selecionados.length <= Locacao.quantidadeMax) {
                 btnSelecionar.setEnabled(true);
             } else {
                 btnSelecionar.setEnabled(false);
-            }
+            }            
+            
+            for (int selecionado : selecionados) {
+                int index = tabelaFilmes.convertRowIndexToModel(selecionado);
+                String titulo = (String)tabelaFilmes.getValueAt(index, 0);
+                    
+                Map.Entry<DVD, Integer> dvd = Main.GetDVD(titulo);
+                
+                if (dvd.getValue() == 0) {
+                    btnSelecionar.setEnabled(false);
+                    return;
+                }
+            }          
         }
     }//GEN-LAST:event_tabelaFilmesMouseClicked
 
@@ -380,8 +400,11 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 
                 for(int selecionado : selecionados) {
                     int index = tabelaFilmes.convertRowIndexToModel(selecionado);
+                    String titulo = (String)tabelaFilmes.getValueAt(index, 0);
                     
-                    dvds.add(Main.GetFilme(index));
+                    Map.Entry<DVD, Integer> dvd = Main.GetDVD(titulo);
+                    
+                    dvds.add(dvd.getKey());
                 }
                 
                 clienteSelecionado.Alugar(dvds, Main.Data());
@@ -389,7 +412,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 Main.AtualizarClientes();
                 Main.AtualizarDVDs();
                 
-                javax.swing.JOptionPane.showMessageDialog(this, "O cliente " + clienteSelecionado.Nome() + " alugou " + selecionados.length + " filmes.");
+                javax.swing.JOptionPane.showMessageDialog(this, "O cliente " + clienteSelecionado.Nome() + " alugou " + clienteSelecionado.Locacao().ToString() + ".");
                 guia.setEnabledAt(0, true);
                 guia.setSelectedIndex(0);
                 
@@ -416,7 +439,10 @@ public class InterfaceInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
-        Main.AtualizarClientesPesquisa(txtPesquisa.getText());        
+        if (guia.getSelectedIndex() == 0)
+            Main.AtualizarClientesPesquisa(txtPesquisa.getText());     
+        else
+            Main.AtualizarDVDsPesquisa(txtPesquisa.getText());          
     }//GEN-LAST:event_btnProcurarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -426,10 +452,17 @@ public class InterfaceInicio extends javax.swing.JFrame {
     private void txtPesquisaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisaCaretUpdate
         String text = txtPesquisa.getText();
                 
-        if (text.equals("") || text.equals(" "))
-           Main.AtualizarClientes();
-        else
-            Main.AtualizarClientesPesquisa(text);  
+        if (text.equals("") || text.equals(" ")) {
+           if (guia.getSelectedIndex() == 0)
+               Main.AtualizarClientes();
+           else
+               Main.AtualizarDVDs();
+        } else {
+            if (guia.getSelectedIndex() == 0)
+                Main.AtualizarClientesPesquisa(text);     
+            else
+                Main.AtualizarDVDsPesquisa(text);  
+        }
         
     }//GEN-LAST:event_txtPesquisaCaretUpdate
 
