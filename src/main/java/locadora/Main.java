@@ -5,6 +5,7 @@
  */
 package locadora;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -47,7 +48,7 @@ public class Main {
         gerenciadorDeDados.CadastrarDVD("Os Incríveis", LocalDate.of(2004, 12, 10), Classificacao.Livre, 1); 
         gerenciadorDeDados.CadastrarDVD("Toy Story", LocalDate.of(1995, 12, 22), Classificacao.Livre, 1);        
         //gerenciadorDeDados.PrintClientes();
-        gerenciadorDeDados.PrintDVDs();
+        //gerenciadorDeDados.PrintDVDs();
         
         // Mudar o tema
         try {
@@ -75,9 +76,25 @@ public class Main {
         interfaceInicio.setLocationRelativeTo(null);
         interfaceInicio.setVisible(true);            
         
-        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
+        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes(null));
         interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());        
     }
+ 
+    public static LocalDate Data () {
+        return LocalDate.now();
+    }    
+    
+    public static Cliente GetCliente (String cpf) {
+        return gerenciadorDeDados.ProcurarClienteCPF(cpf);
+    }            
+            
+    public static Cliente GetCliente (int index) {
+        return gerenciadorDeDados.GetCliente(index);
+    }
+ 
+    public static DVD GetFilme (int index) {
+        return gerenciadorDeDados.GetFilme(index);
+    }    
     
     public static void BotaoNovo (int aba) {
         if (aba == 0) {
@@ -98,7 +115,7 @@ public class Main {
             
             gerenciadorDeDados.RemoverCliente(cpf);
             
-            interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
+            interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes(null));
         } else {  
             int row = tabelaFilmes.convertRowIndexToModel(tabelaFilmes.getSelectedRow());           
             String nome = tabelaFilmes.getModel().getValueAt(row, 0).toString();  
@@ -108,14 +125,22 @@ public class Main {
             interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());  
         }
     }
-    
+
     public static void AtualizarClientes() {
-        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
+        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes(null));
+    }
+
+    public static void AtualizarClientesPesquisa(String string) {
+        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes(gerenciadorDeDados.ProcurarClientes(string)));
+    }    
+    
+    public static void AtualizarDVDs() {
+        interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());
     }
     
     public static boolean NovoCliente (String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco, String telefone) {
         gerenciadorDeDados.CadastrarCliente(nome, sobrenome, cpf, dataNascimento, endereco, telefone);
-        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes());
+        interfaceInicio.AtualizarListaClientes(gerenciadorDeDados.TabelarClientes(null));
         return true;
     } 
     

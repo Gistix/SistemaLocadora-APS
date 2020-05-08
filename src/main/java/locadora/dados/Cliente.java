@@ -8,6 +8,7 @@ package locadora.dados;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  *
@@ -42,6 +43,30 @@ public class Cliente implements java.io.Serializable {
             locacao = null;
     }   
     
+    public String Nome () {
+        return nome;
+    }
+
+    public String CPF () {
+        return cpf;
+    }    
+    
+    public Locacao Locacao() {
+        return locacao;
+    }        
+    
+    public String Estado () {
+        if (locacao != null) {
+            long dias = DAYS.between(locacao.DataLocacao(), LocalDate.now());
+            
+            if (dias > Locacao.tempoMax)
+                return "Atrasado (" + (dias - Locacao.tempoMax) + " dias)";
+            else
+                return "Pendente (" + (Locacao.tempoMax - dias) + " dias restantes)"; 
+        }
+        
+        return "Sem pendências";
+    }
     
     public void Print () {
         System.out.println("Nome: " + nome + " " + sobrenome);

@@ -1,10 +1,15 @@
 package locadora.ui;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 import locadora.Main;
+import locadora.dados.*;
+import javax.swing.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -33,7 +38,6 @@ public class InterfaceInicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grupoBtnPesquisa = new javax.swing.ButtonGroup();
         guia = new javax.swing.JTabbedPane();
         painelClientes = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -45,12 +49,11 @@ public class InterfaceInicio extends javax.swing.JFrame {
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        btnAlugar = new javax.swing.JButton();
+        btnSelecionar = new javax.swing.JButton();
         btnDevolver = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         painelPesquisa = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
-        pesquisaNome = new javax.swing.JRadioButton();
-        pesquisaCPF = new javax.swing.JRadioButton();
         btnProcurar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,15 +93,13 @@ public class InterfaceInicio extends javax.swing.JFrame {
             painelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
         );
         painelClientesLayout.setVerticalGroup(
             painelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClientesLayout.createSequentialGroup()
+            .addGroup(painelClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
         );
 
         guia.addTab("Clientes", painelClientes);
@@ -123,8 +124,8 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaFilmes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabelaFilmes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaFilmes.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabelaFilmes.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tabelaFilmes.getTableHeader().setReorderingAllowed(false);
         tabelaFilmes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,17 +138,15 @@ public class InterfaceInicio extends javax.swing.JFrame {
         painelFilmes.setLayout(painelFilmesLayout);
         painelFilmesLayout.setHorizontalGroup(
             painelFilmesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFilmesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(painelFilmesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
         );
         painelFilmesLayout.setVerticalGroup(
             painelFilmesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFilmesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
         );
 
         guia.addTab("Filmes", painelFilmes);
@@ -175,14 +174,27 @@ public class InterfaceInicio extends javax.swing.JFrame {
             }
         });
 
-        btnAlugar.setText("Alugar");
-        btnAlugar.setEnabled(false);
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.setEnabled(false);
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
 
         btnDevolver.setText("Devolver");
         btnDevolver.setEnabled(false);
         btnDevolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDevolverActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -196,18 +208,21 @@ public class InterfaceInicio extends javax.swing.JFrame {
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelBotoesLayout.setVerticalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAlugar)
+                .addComponent(btnSelecionar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDevolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,15 +233,24 @@ public class InterfaceInicio extends javax.swing.JFrame {
 
         painelPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
 
-        grupoBtnPesquisa.add(pesquisaNome);
-        pesquisaNome.setSelected(true);
-        pesquisaNome.setText("Nome");
-
-        grupoBtnPesquisa.add(pesquisaCPF);
-        pesquisaCPF.setText("CPF");
+        txtPesquisa.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPesquisaCaretUpdate(evt);
+            }
+        });
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaActionPerformed(evt);
+            }
+        });
 
         btnProcurar.setText("Procurar");
         btnProcurar.setToolTipText("");
+        btnProcurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelPesquisaLayout = new javax.swing.GroupLayout(painelPesquisa);
         painelPesquisa.setLayout(painelPesquisaLayout);
@@ -234,16 +258,9 @@ public class InterfaceInicio extends javax.swing.JFrame {
             painelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelPesquisaLayout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelPesquisaLayout.createSequentialGroup()
-                        .addComponent(pesquisaNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pesquisaCPF)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(txtPesquisa)
+                .addGap(18, 18, 18)
+                .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painelPesquisaLayout.setVerticalGroup(
@@ -252,39 +269,35 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 .addGroup(painelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcurar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(painelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pesquisaCPF)
-                    .addComponent(pesquisaNome))
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(painelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(guia, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(painelPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(guia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guia, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addContainerGap()
+                        .addComponent(guia))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         guia.getAccessibleContext().setAccessibleName("guia");
@@ -301,7 +314,20 @@ public class InterfaceInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
-        // TODO add your handling code here:
+        int index = tabelaClientes.convertRowIndexToModel(tabelaClientes.getSelectedRow());
+        String cpf = (String)tabelaClientes.getValueAt(index, 1);
+        Cliente cliente = Main.GetCliente(cpf);
+            
+        Object[] options = {"Sim", "Cancelar"};
+        
+        int n = JOptionPane.showOptionDialog(this,
+            "Deseja devolver os filmes " + cliente.Locacao().ToString(),
+            "Devolução",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,     //do not use a custom Icon
+            options,  //the titles of buttons
+            options[0]); //default button title
     }//GEN-LAST:event_btnDevolverActionPerformed
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
@@ -312,24 +338,122 @@ public class InterfaceInicio extends javax.swing.JFrame {
         if (guia.getSelectedIndex() == 0) {
             atualizarBotoesCliente();
         } else {
-            atualizarBotoesFilme();      
+            atualizarBotoesFilme();
         }
     }//GEN-LAST:event_guiaStateChanged
 
     private void tabelaFilmesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFilmesMouseClicked
-        atualizarBotoesFilme();
+        if (clienteSelecionado == null) {
+            atualizarBotoesFilme();
+        } else {
+            int[] selecionados = tabelaFilmes.getSelectedRows();
+            
+            if (selecionados.length > 0 && selecionados.length <= Locacao.quantidadeMax) {
+                btnSelecionar.setEnabled(true);
+            } else {
+                btnSelecionar.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_tabelaFilmesMouseClicked
+
+    Cliente clienteSelecionado;
+    List<DVD> dvds;
+    
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        if (clienteSelecionado == null) {
+            if (guia.getSelectedIndex() == 0) { // Salva o cliente em uma variável e troca de aba para selecionar o filme
+                int index = tabelaClientes.convertRowIndexToModel(tabelaClientes.getSelectedRow());
+                String cpf = (String)tabelaClientes.getValueAt(index, 1);
+                clienteSelecionado = Main.GetCliente(cpf);
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Selecione o(s) filme(s) para alugar.");
+                guia.setSelectedIndex(1);
+                guia.setEnabledAt(0, false);
+                btnCancelar.setEnabled(true);
+            }
+        } else {
+            if (guia.getSelectedIndex() == 1) { // Seleciona o(s) filme(s) para alugar
+                //tabelaFilmes.getSelectedRows();
+                int[] selecionados = tabelaFilmes.getSelectedRows();
+                
+                dvds = new ArrayList<DVD>();
+                
+                for(int selecionado : selecionados) {
+                    int index = tabelaFilmes.convertRowIndexToModel(selecionado);
+                    
+                    dvds.add(Main.GetFilme(index));
+                }
+                
+                clienteSelecionado.Alugar(dvds, Main.Data());
+                
+                Main.AtualizarClientes();
+                Main.AtualizarDVDs();
+                
+                javax.swing.JOptionPane.showMessageDialog(this, "O cliente " + clienteSelecionado.Nome() + " alugou " + selecionados.length + " filmes.");
+                guia.setEnabledAt(0, true);
+                guia.setSelectedIndex(0);
+                
+                btnSelecionar.setEnabled(false);                
+                btnCancelar.setEnabled(false);   
+                
+                clienteSelecionado = null;
+            }            
+        }
+    }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        clienteSelecionado = null;
+        
+        guia.setEnabledAt(0, true);
+        guia.setEnabledAt(1, true);
+        btnSelecionar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        
+        if (guia.getSelectedIndex() == 0)
+            guia.setSelectedIndex(1);
+        else
+            guia.setSelectedIndex(0);        
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
+        Main.AtualizarClientesPesquisa(txtPesquisa.getText());        
+    }//GEN-LAST:event_btnProcurarActionPerformed
+
+    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
+        System.out.println("Action Performed");
+    }//GEN-LAST:event_txtPesquisaActionPerformed
+
+    private void txtPesquisaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisaCaretUpdate
+        String text = txtPesquisa.getText();
+                
+        if (text.equals("") || text.equals(" "))
+           Main.AtualizarClientes();
+        else
+            Main.AtualizarClientesPesquisa(text);  
+        
+    }//GEN-LAST:event_txtPesquisaCaretUpdate
 
     void atualizarBotoesCliente() {
         if (tabelaClientes.getSelectedRow() != -1) {
-            btnAlugar.setEnabled(true);            
+            int index = tabelaClientes.convertRowIndexToModel(tabelaClientes.getSelectedRow());
+            String cpf = (String)tabelaClientes.getValueAt(index, 1);
+            Cliente cliente = Main.GetCliente(cpf);
+            
+            if (cliente.Locacao() == null) {
+                btnSelecionar.setEnabled(true);
+                btnDevolver.setEnabled(false);
+            } else {
+                btnSelecionar.setEnabled(false);
+                btnDevolver.setEnabled(true);
+            }
+                        
             btnEditar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
     }
 
     void atualizarBotoesFilme() {
-        btnAlugar.setEnabled(false);
+        btnSelecionar.setEnabled(false);
         btnDevolver.setEnabled(false);
          
         if (tabelaFilmes.getSelectedRow() != -1) {          
@@ -340,7 +464,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
 
     public void AtualizarListaClientes(Object[][] tabela) {
         String[] colunas = new String[] {
-            "Nome", "CPF", "Última Locação"
+            "Nome", "CPF", "Estado"
         };        
 
         DefaultTableModel model = new DefaultTableModel(tabela, colunas) {
@@ -371,13 +495,13 @@ public class InterfaceInicio extends javax.swing.JFrame {
     }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlugar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDevolver;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnProcurar;
-    private javax.swing.ButtonGroup grupoBtnPesquisa;
+    private javax.swing.JButton btnSelecionar;
     private javax.swing.JTabbedPane guia;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -385,8 +509,6 @@ public class InterfaceInicio extends javax.swing.JFrame {
     private javax.swing.JPanel painelClientes;
     private javax.swing.JPanel painelFilmes;
     private javax.swing.JPanel painelPesquisa;
-    private javax.swing.JRadioButton pesquisaCPF;
-    private javax.swing.JRadioButton pesquisaNome;
     private javax.swing.JTable tabelaClientes;
     private javax.swing.JTable tabelaFilmes;
     private javax.swing.JTextField txtPesquisa;

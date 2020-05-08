@@ -16,6 +16,9 @@ public class Locacao implements java.io.Serializable {
     private List<DVD> dvds;
     private LocalDate dataLocacao;
     
+    public static int tempoMax = 7;
+    public static int quantidadeMax = 3;
+    
     Locacao (List<DVD> dvds, LocalDate dataLocacao) {
         this.dvds = dvds;
         this.dataLocacao = dataLocacao;       
@@ -28,10 +31,22 @@ public class Locacao implements java.io.Serializable {
         return dvds;
     }
 
-    /**
-     * @return the dataLocacao
-     */
-    public LocalDate getDataLocacao() {
+    public LocalDate DataLocacao() {
         return dataLocacao;
+    }
+    
+    public String ToString() {
+        String string = "";
+        
+        for (int i = 0; i < dvds.size(); i++) {
+            DVD dvd = dvds.get(i);
+            
+            if (i == 0)
+                string += dvd.titulo;
+            else
+                string += ", " + dvd.titulo;            
+        }
+        
+        return string;
     }
 }

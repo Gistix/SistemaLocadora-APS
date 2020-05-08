@@ -55,7 +55,36 @@ public class GerenciadorDeDados {
             dados.dvds.replace(dvd, dados.dvds.get(dvd) + quantidade);
         }
     }
+    
+    public List<DVD> GetDVDs () {
+        List<DVD> dvds = new ArrayList<>();
 
+        for(Map.Entry<DVD, Integer> dvdMap : dados.dvds.entrySet())
+            dvds.add(dvdMap.getKey());
+        
+        return null;        
+    }
+    
+    public DVD GetFilme (int index) {
+        HashMap<DVD, Integer> dvds = dados.dvds; 
+        
+        Object[][] tabela = new Object[dvds.size()][];
+        
+        int i = 0;
+        
+         for(Map.Entry<DVD, Integer> dvdMap : dvds.entrySet()) {
+            DVD dvd = dvdMap.getKey();
+            int quantidade = dvdMap.getValue();
+            
+            if (i == index)
+                return dvd;
+                        
+            i++;
+        }
+        
+        return null;
+    }
+    
     public void RemoverDVD (String nome) {
         for(Map.Entry<DVD, Integer> dvdMap : dados.dvds.entrySet()) {
             DVD dvd = dvdMap.getKey();
@@ -116,14 +145,30 @@ public class GerenciadorDeDados {
             System.out.println("Cliente " + cliente.nome + " " + cliente.sobrenome + " já cadastrado no sistema.");      
         }
     }
+
+    public List<Cliente> GetClientes () {
+        return dados.clientes;
+    }    
     
-    public Cliente ProcurarClienteNome (String nome) {
+    public Cliente GetCliente (int index) {
+        Cliente cliente = dados.clientes.get(index);
+        
+        return cliente;
+    }
+    
+    public List<Cliente> ProcurarClientes (String string) {
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        
+        string = string.toLowerCase();
+
         for(Cliente cliente : dados.clientes) {
-            if (cliente.nome.equals(nome))
-                return cliente;
+            String nomeCompleto = cliente.nome + " " + cliente.sobrenome;
+            
+            if (nomeCompleto.toLowerCase().indexOf(string) != -1 || cliente.cpf.toLowerCase().indexOf(string) != -1)
+                clientes.add(cliente);
         }
         
-        return null;
+        return clientes;
     }
 
     public Cliente ProcurarClienteCPF (String cpf) {
@@ -161,14 +206,15 @@ public class GerenciadorDeDados {
         cliente.Devolver(dvds, dataLocacao);      
     }*/
 
-    public Object[][] TabelarClientes () {
-        List<Cliente> clientes = dados.clientes; 
+    public Object[][] TabelarClientes (List<Cliente> clientes) {
+        if (clientes == null)
+            clientes = dados.clientes; 
         
         Object[][] tabela = new Object[clientes.size()][];
         
         for (int i = 0; i < clientes.size(); i++) {
             Cliente cliente = clientes.get(i);
-            tabela[i] = new Object[] {cliente.nome + " " + cliente.sobrenome, cliente.cpf, "teste"};
+            tabela[i] = new Object[] {cliente.nome + " " + cliente.sobrenome, cliente.cpf, cliente.Estado()};
         }
         
         return tabela;
