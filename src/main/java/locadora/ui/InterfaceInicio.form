@@ -245,7 +245,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnExcluir" max="32767" attributes="0"/>
-                      <Component id="btnEditar" max="32767" attributes="0"/>
                       <Component id="btnNovo" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnSelecionar" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnDevolver" max="32767" attributes="0"/>
@@ -264,10 +263,8 @@
                   <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnDevolver" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                  <EmptySpace pref="84" max="32767" attributes="0"/>
                   <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -286,15 +283,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnEditar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Editar"/>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[80, 22]"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluir">
           <Properties>
@@ -349,11 +337,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtPesquisa" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnProcurar" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -361,10 +347,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnProcurar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txtPesquisa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -375,15 +358,6 @@
           <Events>
             <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtPesquisaCaretUpdate"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesquisaActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnProcurar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Procurar"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcurarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

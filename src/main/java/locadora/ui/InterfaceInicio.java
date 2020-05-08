@@ -48,14 +48,12 @@ public class InterfaceInicio extends javax.swing.JFrame {
         tabelaFilmes = new javax.swing.JTable();
         painelBotoes = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
         btnDevolver = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         painelPesquisa = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
-        btnProcurar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Locadora");
@@ -162,10 +160,6 @@ public class InterfaceInicio extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setText("Editar");
-        btnEditar.setEnabled(false);
-        btnEditar.setPreferredSize(new java.awt.Dimension(80, 22));
-
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setPreferredSize(new java.awt.Dimension(80, 22));
@@ -207,7 +201,6 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -223,10 +216,8 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDevolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -245,14 +236,6 @@ public class InterfaceInicio extends javax.swing.JFrame {
             }
         });
 
-        btnProcurar.setText("Procurar");
-        btnProcurar.setToolTipText("");
-        btnProcurar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcurarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout painelPesquisaLayout = new javax.swing.GroupLayout(painelPesquisa);
         painelPesquisa.setLayout(painelPesquisaLayout);
         painelPesquisaLayout.setHorizontalGroup(
@@ -260,16 +243,12 @@ public class InterfaceInicio extends javax.swing.JFrame {
             .addGroup(painelPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtPesquisa)
-                .addGap(18, 18, 18)
-                .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painelPesquisaLayout.setVerticalGroup(
             painelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelPesquisaLayout.createSequentialGroup()
-                .addGroup(painelPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProcurar))
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -438,13 +417,6 @@ public class InterfaceInicio extends javax.swing.JFrame {
             guia.setSelectedIndex(0);        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
-        if (guia.getSelectedIndex() == 0)
-            Main.AtualizarClientesPesquisa(txtPesquisa.getText());     
-        else
-            Main.AtualizarDVDsPesquisa(txtPesquisa.getText());          
-    }//GEN-LAST:event_btnProcurarActionPerformed
-
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
         System.out.println("Action Performed");
     }//GEN-LAST:event_txtPesquisaActionPerformed
@@ -480,7 +452,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 btnDevolver.setEnabled(true);
             }
                         
-            btnEditar.setEnabled(true);
+            //btnEditar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
     }
@@ -490,7 +462,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
         btnDevolver.setEnabled(false);
          
         if (tabelaFilmes.getSelectedRow() != -1) {          
-            btnEditar.setEnabled(true);
+            //btnEditar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
     }
@@ -530,10 +502,8 @@ public class InterfaceInicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDevolver;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnProcurar;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JTabbedPane guia;
     private javax.swing.JScrollPane jScrollPane3;
