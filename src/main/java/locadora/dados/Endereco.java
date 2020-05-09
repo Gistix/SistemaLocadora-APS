@@ -10,12 +10,12 @@ package locadora.dados;
  * @author Giovanni
  */
 public class Endereco implements java.io.Serializable {
-    String logradouro;
-    int numero;
-    String complemento;
-    String cidade;
-    String bairro;
-    String cep;
+    public String logradouro;
+    public int numero;
+    public String complemento;
+    public String cidade;
+    public String bairro;
+    public String cep;
 
     public Endereco (String logradouro, int numero, String complemento, String cidade, String bairro, String cep) {
         this.logradouro = logradouro;

@@ -142,7 +142,7 @@ public class GerenciadorDeDados {
             DVD dvd = dvdMap.getKey();
             int quantidade = dvdMap.getValue();
             
-            tabela[i] = new Object[] {dvd.titulo, dvd.dataLancamento, quantidade};
+            tabela[i] = new Object[] {dvd.titulo, dvd.ClassificacaoToString2(), dvd.dataLancamento, quantidade};
             i++;
         }
         
@@ -158,7 +158,7 @@ public class GerenciadorDeDados {
             DVD dvd = dvdMap.getKey();
             int quantidade = dvdMap.getValue();
             
-            tabela[i] = new Object[] {dvd.titulo, dvd.dataLancamento, quantidade};
+            tabela[i] = new Object[] {dvd.titulo, dvd.ClassificacaoToString2(), dvd.dataLancamento, quantidade};
             i++;
         }
         
@@ -283,19 +283,24 @@ public class GerenciadorDeDados {
     
     public void Abrir() {
         try {
-            FileInputStream fileIn = new FileInputStream("dados.bin");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-           
-            try {  
-                dados = (Dados) in.readObject();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GerenciadorDeDados.class.getName()).log(Level.SEVERE, null, ex);
+            File file = new File("dados.bin");
+            
+            if (file.exists()) {
+                FileInputStream fileIn = new FileInputStream(file);
+
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+
+                try {  
+                    dados = (Dados) in.readObject();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(GerenciadorDeDados.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+               in.close();
+
+               fileIn.close();
+               System.out.printf("Dados foram carregados de dados.bin");
             }
-             
-           in.close();
-           
-           fileIn.close();
-           System.out.printf("Dados foram carregados de dados.bin");
         } catch (IOException ioExecept) {
            ioExecept.printStackTrace();
         }        

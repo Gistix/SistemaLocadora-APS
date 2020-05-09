@@ -44,6 +44,8 @@ public class Cliente implements java.io.Serializable {
             
             this.locacao = new Locacao(dvds, dataLocacao); 
         }
+        
+        Main.Salvar();
     }
 
     public void Devolver () {
@@ -55,15 +57,33 @@ public class Cliente implements java.io.Serializable {
             
             locacao = null;
         }
+        
+        Main.Salvar();        
     }  
     
     public String Nome () {
         return nome;
     }
-
+    
+    public String Sobrenome () {
+        return sobrenome;
+    }
+    
     public String CPF () {
         return cpf;
     }    
+
+    public LocalDate DataNascimento () {
+        return dataNascimento;
+    }
+    
+    public Endereco Endereco () {
+        return endereço;
+    }
+
+    public String Telefone () {
+        return telefone;
+    }
     
     public Locacao Locacao() {
         return locacao;

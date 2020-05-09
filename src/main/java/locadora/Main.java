@@ -23,20 +23,15 @@ public class Main {
     static GerenciadorDeDados gerenciadorDeDados = new GerenciadorDeDados();
     static InterfaceInicio interfaceInicio;
     
-    public static void main(String[] args) {
-        // A idéia é todo o código rolar aqui, dai a gente abre as janelas por aqui
+    public static void CriarDados () {
         gerenciadorDeDados.CadastrarCliente("Giovanni", "Correia", "999.999.999-91", gerenciadorDeDados.Data(), 
-                new Endereco("logadouro", 1, "", "Quase Sertãozinho", "", "14000-000"), "99999-9999");   
+            new Endereco("logadouro", 1, "", "Quase Sertãozinho", "", "14000-000"), "99999-9999");   
         
         gerenciadorDeDados.CadastrarCliente("Marco", "Cornazieri", "999.999.999-92", gerenciadorDeDados.Data(), 
-                new Endereco("logadouro", 2, "", "Terra do galizé", "", "00000-000"), "99999-9999");
+            new Endereco("logadouro", 2, "", "Terra do galizé", "", "00000-000"), "99999-9999");
         
         gerenciadorDeDados.CadastrarCliente("Serafim", "Francisco", "999.999.999-93", gerenciadorDeDados.Data(), 
-                new Endereco("logadouro", 3, "", "Jaboticabalândia", "", "00000-000"), "99999-9999");
-        
-        //gerenciadorDeDados.Salvar();
-        
-        //gerenciadorDeDados.Abrir();
+            new Endereco("logadouro", 3, "", "Jaboticabalândia", "", "00000-000"), "99999-9999");
         
         gerenciadorDeDados.CadastrarDVD("Matrix", LocalDate.of(1999, 5, 21), Classificacao.Proibido12, 3);    
         gerenciadorDeDados.CadastrarDVD("Matrix", LocalDate.of(1999, 5, 21), Classificacao.Proibido12, 1);         
@@ -47,13 +42,15 @@ public class Main {
         gerenciadorDeDados.CadastrarDVD("Exterminador do Futuro 2: O Julgamento Final", LocalDate.of(1991, 8, 30), Classificacao.Proibido12, 2);
         gerenciadorDeDados.CadastrarDVD("Interstellar", LocalDate.of(2014, 11, 6), Classificacao.Proibido10, 2);
         gerenciadorDeDados.CadastrarDVD("Os Incríveis", LocalDate.of(2004, 12, 10), Classificacao.Livre, 1); 
-        gerenciadorDeDados.CadastrarDVD("Toy Story", LocalDate.of(1995, 12, 22), Classificacao.Livre, 1);        
-        //gerenciadorDeDados.PrintClientes();
-        //gerenciadorDeDados.PrintDVDs();
-        
+        gerenciadorDeDados.CadastrarDVD("Toy Story", LocalDate.of(1995, 12, 22), Classificacao.Livre, 1); 
+    }
+    
+    public static void main(String[] args) {
+        gerenciadorDeDados.Abrir();
+        //CriarDados();
         // Mudar o tema
         try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf"); // FlatLightLaf
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // com.formdev.flatlaf.FlatDarkLaf / FlatLightLaf
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -64,15 +61,6 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //com.formdev.flatlaf.FlatLaf.updateUI();        
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfaceInicio().setVisible(true);
-            }
-        });*/
-        
         interfaceInicio = new InterfaceInicio();
         interfaceInicio.setLocationRelativeTo(null);
         interfaceInicio.setVisible(true);            
@@ -81,6 +69,10 @@ public class Main {
         interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());        
     }
  
+    public static void Salvar () {
+        gerenciadorDeDados.Salvar();
+    }
+    
     public static LocalDate Data () {
         return LocalDate.now();
     }    
@@ -111,6 +103,8 @@ public class Main {
             dialogoAddFilme.setLocationRelativeTo(interfaceInicio);
             dialogoAddFilme.setVisible(true);           
         }
+        
+        Main.Salvar();
     }
     
     public static void BotaoExcluir (int aba, JTable tabelaClientes, JTable tabelaFilmes) {
@@ -129,6 +123,8 @@ public class Main {
             
             interfaceInicio.AtualizarListaDVDs(gerenciadorDeDados.TabelarDVDs());  
         }
+        
+        Main.Salvar();
     }
 
     public static void AtualizarClientes() {

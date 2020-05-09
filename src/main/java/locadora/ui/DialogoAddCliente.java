@@ -248,6 +248,7 @@ public class DialogoAddCliente extends javax.swing.JDialog {
         String telefone = telefone_ct.getText();
         
         Main.NovoCliente(nome, sobrenome, cpf, nascimento, endereco, telefone);
+        dispose();
     }//GEN-LAST:event_confirmar_cadastro_cliente_btActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

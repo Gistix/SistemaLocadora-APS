@@ -1,6 +1,7 @@
 package locadora.ui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
         btnSelecionar = new javax.swing.JButton();
         btnDevolver = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnExibirInfo = new javax.swing.JButton();
         painelPesquisa = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
 
@@ -193,6 +195,13 @@ public class InterfaceInicio extends javax.swing.JFrame {
             }
         });
 
+        btnExibirInfo.setText("Exibir Info");
+        btnExibirInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExibirInfoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
         painelBotoesLayout.setHorizontalGroup(
@@ -204,7 +213,8 @@ public class InterfaceInicio extends javax.swing.JFrame {
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSelecionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExibirInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelBotoesLayout.setVerticalGroup(
@@ -216,7 +226,9 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDevolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(btnExibirInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -368,7 +380,11 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Selecione o(s) filme(s) para alugar.");
                 guia.setSelectedIndex(1);
                 guia.setEnabledAt(0, false);
+                
                 btnCancelar.setEnabled(true);
+                
+                btnNovo.setEnabled(false);
+                btnExcluir.setEnabled(false);                
             }
         } else {
             if (guia.getSelectedIndex() == 1) { // Seleciona o(s) filme(s) para alugar
@@ -398,6 +414,8 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 btnSelecionar.setEnabled(false);                
                 btnCancelar.setEnabled(false);   
                 
+                btnNovo.setEnabled(true);            
+                
                 clienteSelecionado = null;
             }            
         }
@@ -410,6 +428,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
         guia.setEnabledAt(1, true);
         btnSelecionar.setEnabled(false);
         btnCancelar.setEnabled(false);
+        btnNovo.setEnabled(true); 
         
         if (guia.getSelectedIndex() == 0)
             guia.setSelectedIndex(1);
@@ -434,9 +453,30 @@ public class InterfaceInicio extends javax.swing.JFrame {
                 Main.AtualizarClientesPesquisa(text);     
             else
                 Main.AtualizarDVDsPesquisa(text);  
-        }
-        
+        }        
     }//GEN-LAST:event_txtPesquisaCaretUpdate
+
+    private void btnExibirInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExibirInfoActionPerformed
+        int index = tabelaClientes.convertRowIndexToModel(tabelaClientes.getSelectedRow());
+        String cpf = (String)tabelaClientes.getValueAt(index, 1);
+        Cliente cliente = Main.GetCliente(cpf);
+ 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
+        
+        String informação = cliente.Nome() + " " + cliente.Sobrenome() + "    CPF: " + cliente.CPF() + "    Data de Nascimento: " + cliente.DataNascimento().format(formatter);       
+        informação += "\nTelefone: " + cliente.Telefone();
+        
+        Endereco endereco = cliente.Endereco();
+        
+        informação += "    Endereço: " + endereco.logradouro + ", " + endereco.numero + "    " + endereco.complemento;
+        
+        informação += "\n" + endereco.cidade + ", " + endereco.bairro + "    " + endereco.cep;
+        
+        if (cliente.Locacao() != null)
+            informação += "\n\nFilmes Alugados: " + cliente.Locacao().ToString();
+        
+        javax.swing.JOptionPane.showMessageDialog(this, informação);
+    }//GEN-LAST:event_btnExibirInfoActionPerformed
 
     void atualizarBotoesCliente() {
         if (tabelaClientes.getSelectedRow() != -1) {
@@ -453,11 +493,16 @@ public class InterfaceInicio extends javax.swing.JFrame {
             }
                         
             //btnEditar.setEnabled(true);
+            btnExibirInfo.setEnabled(true);
             btnExcluir.setEnabled(true);
+        } else {
+            btnExibirInfo.setEnabled(false);
         }
     }
 
     void atualizarBotoesFilme() {
+        btnExibirInfo.setEnabled(false);
+        
         btnSelecionar.setEnabled(false);
         btnDevolver.setEnabled(false);
          
@@ -485,7 +530,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
     
     public void AtualizarListaDVDs(Object[][] tabela) {
         String[] colunas = new String[] {
-            "Nome", "Data de Lançamento", "Qtd. Disponível"
+            "Nome", "Classificação", "Data de Lançamento", "Qtd. Disponível"
         };        
 
         DefaultTableModel model = new DefaultTableModel(tabela, colunas) {
@@ -503,6 +548,7 @@ public class InterfaceInicio extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnDevolver;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExibirInfo;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JTabbedPane guia;

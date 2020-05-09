@@ -40,7 +40,7 @@ public class DVD implements java.io.Serializable {
         System.out.println("Data de Lançamento: " + dataLancamento);
         System.out.println("Classificação: " + ClassificacaoToString());        
     } 
-    
+ 
     public String ClassificacaoToString () {
         switch (classificacao) {
             case Livre:
@@ -55,6 +55,25 @@ public class DVD implements java.io.Serializable {
                 return "Proibido para menores de 16 anos de idade.";
             case Proibido18:    
                 return "Proibido para menores de 18 anos de idade.";
+            default:
+                return "";
+        }
+    }    
+    
+    public String ClassificacaoToString2 () {
+        switch (classificacao) {
+            case Livre:
+                return "Livre";
+            case Proibido10:    
+                return "10+ anos";
+            case Proibido12:    
+                return "12+ anos";
+            case Proibido14:    
+                return "14+ anos";
+            case Proibido16:    
+                return "16+ anos";
+            case Proibido18:    
+                return "18+ anos";
             default:
                 return "";
         }
